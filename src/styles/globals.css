@@ -1,0 +1,254 @@
+@import "tailwindcss";
+@import "aos/dist/aos.css";
+
+/* Dark mode: class-based (.dark on <html>) */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ── Custom theme ──────────────────────────────────────────── */
+@theme {
+  --font-family-sora: 'Sora', sans-serif;
+  --font-family-mono: 'Geist Mono', 'JetBrains Mono', monospace;
+
+  --color-orbita: #3B82F6;
+  --color-orbita-bright: #60A5FA;
+  --color-orbita-dark: #1D4ED8;
+
+  /* Animations */
+  --animate-fade-up: fadeUp 1s ease forwards;
+  --animate-twinkle: twinkle 6s infinite;
+  --animate-blink: blink 1.4s infinite;
+  --animate-slide-in: slideInRight 0.4s ease forwards;
+  --animate-slide-out: slideOutRight 0.4s ease forwards;
+  --animate-pulse-ring: pulseRing 1.8s ease-out infinite;
+  --animate-orbit: orbitSpin var(--dur, 30s) linear infinite;
+  --animate-counter-spin: counterSpin var(--dur, 30s) linear infinite;
+  --animate-hub-spin: hubSpin 60s linear infinite;
+  --animate-hub-counter: hubCounter 60s linear infinite;
+  --animate-msg-in: msgIn 0.3s ease forwards;
+  --animate-toast-in: toastIn 0.3s ease forwards;
+  --animate-float: float 4s ease-in-out infinite;
+  --animate-shimmer: shimmer 2s linear infinite;
+}
+
+/* ── Keyframes ─────────────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; }
+  50%       { opacity: 0.7; }
+}
+@keyframes blink {
+  0%, 100% { opacity: 0.3; transform: scale(0.8); }
+  50%      { opacity: 1;   transform: scale(1); }
+}
+@keyframes slideInRight {
+  from { transform: translateX(110%); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
+}
+@keyframes slideOutRight {
+  from { transform: translateX(0);    opacity: 1; }
+  to   { transform: translateX(110%); opacity: 0; }
+}
+@keyframes pulseRing {
+  0%   { transform: scale(0.85); opacity: 1; }
+  100% { transform: scale(2.2);  opacity: 0; }
+}
+@keyframes orbitSpin {
+  from { transform: rotate(0deg);   }
+  to   { transform: rotate(360deg); }
+}
+@keyframes counterSpin {
+  0%   { transform: translate(-50%,-50%) rotate(0deg)    scale(0.85); opacity: 0.5; filter: blur(2px); }
+  50%  { transform: translate(-50%,-50%) rotate(-180deg) scale(1.1) translateY(-6px); opacity: 1; filter: blur(0); }
+  100% { transform: translate(-50%,-50%) rotate(-360deg) scale(0.85); opacity: 0.5; filter: blur(2px); }
+}
+@keyframes hubSpin    { from { transform: rotate(0deg);   } to { transform: rotate(360deg);  } }
+@keyframes hubCounter { from { transform: rotate(0deg);   } to { transform: rotate(-360deg); } }
+@keyframes msgIn {
+  from { opacity: 0; transform: translateY(8px) scale(0.95); }
+  to   { opacity: 1; transform: translateY(0)   scale(1);    }
+}
+@keyframes toastIn {
+  from { opacity: 0; transform: translateY(-12px) scale(0.9); }
+  to   { opacity: 1; transform: translateY(0)     scale(1);   }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0);    }
+  50%       { transform: translateY(-8px); }
+}
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+@keyframes arcFloat {
+  0%, 100% { transform: translateY(0);    }
+  50%       { transform: translateY(-10px); }
+}
+
+/* ── Base styles ───────────────────────────────────────────── */
+@layer base {
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scrollbar-width: none; -ms-overflow-style: none; }
+  ::-webkit-scrollbar { display: none; }
+
+  body {
+    font-family: var(--font-family-sora);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    color: theme(colors.slate.900);
+    transition: color 0.5s ease, background-color 0.5s ease;
+  }
+  html.dark body {
+    color: theme(colors.slate.50);
+    background: linear-gradient(
+      180deg,
+      #080f22 0%, #050d1c 18%, #020617 40%,
+      #020617 70%, #04091a 90%, #020511 100%
+    ) fixed;
+  }
+  @media (max-width: 1024px) {
+    html.dark body { background: #020617; }
+  }
+  html.light body { background: #eef4ff; }
+}
+
+/* ── Typing dots ───────────────────────────────────────────── */
+.typing-dot { animation: blink 1.4s infinite; }
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+/* ── Message entrance ──────────────────────────────────────── */
+.msg-enter { animation: msgIn 0.3s ease forwards; }
+
+/* ── Shimmer skeleton ──────────────────────────────────────── */
+.shimmer {
+  background: linear-gradient(90deg, #e2e8f0 25%, #f1f5f9 50%, #e2e8f0 75%);
+  background-size: 400% 100%;
+  animation: shimmer 1.6s ease-in-out infinite;
+}
+.dark .shimmer {
+  background: linear-gradient(90deg, #1e293b 25%, #334155 50%, #1e293b 75%);
+  background-size: 400% 100%;
+}
+
+/* ── Canvas overlay ────────────────────────────────────────── */
+#main-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ── Orbital rings ─────────────────────────────────────────── */
+.orbital-system {
+  transform-style: preserve-3d;
+  transform: rotateX(60deg) rotateZ(-15deg);
+}
+.orbit-path {
+  position: absolute;
+  inset: 0;
+  animation: orbitSpin var(--dur, 30s) linear infinite;
+  transform-style: preserve-3d;
+}
+.ring-2 .orbit-path { animation-direction: reverse; }
+.ring-2 .sat        { animation-direction: reverse; }
+.sat {
+  position: absolute;
+  top: 0;
+  left: 0;
+  animation: counterSpinSat var(--dur, 30s) linear infinite;
+}
+@keyframes counterSpinSat {
+  0%   { transform: translate(-50%,-50%) rotate(0deg)    scale(0.82); opacity: 0.4; }
+  50%  { transform: translate(-50%,-50%) rotate(-180deg) scale(1.12) translateY(-6px); opacity: 1; }
+  100% { transform: translate(-50%,-50%) rotate(-360deg) scale(0.82); opacity: 0.4; }
+}
+
+/* ── Hub ───────────────────────────────────────────────────── */
+.hub-orbit-wrap  { position: absolute; inset: 0; width: 100%; height: 100%; animation: hubSpin 60s linear infinite; transform-origin: center; }
+.hub-node-inner  { animation: hubCounter 60s linear infinite; transform-origin: center; }
+
+/* ── Progress bar ──────────────────────────────────────────── */
+.progress-bar {
+  position: fixed; left: 24px; top: 50%; transform: translateY(-50%);
+  width: 2px; height: 160px;
+  background: rgba(255,255,255,0.1); z-index: 100; border-radius: 2px;
+}
+.dark .progress-bar  { background: rgba(255,255,255,0.1); }
+.light .progress-bar { background: rgba(37,99,235,0.15); }
+.progress-fill { position: absolute; top: 0; left: 0; width: 100%; height: 0%; background: #3b82f6; border-radius: 2px; }
+
+/* ── Scroll sequence container ─────────────────────────────── */
+.sequence-container {
+  position: relative; width: 100%; height: 100vh;
+  display: flex; align-items: center; justify-content: center; z-index: 10;
+}
+.content-wrapper {
+  width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 48px;
+  position: relative; height: 100%;
+}
+.section-content {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: space-between;
+  opacity: 0; visibility: hidden; gap: 60px;
+}
+
+/* ── Sticky slides ─────────────────────────────────────────── */
+.slide-container { position: relative; height: 150vh; }
+.sticky-slide {
+  position: sticky; top: 0; height: 100vh;
+  overflow: hidden; display: flex; align-items: center;
+}
+.sticky-slide > section {
+  width: 100%;
+  padding-top:    clamp(1rem, 3vh, 2.5rem);
+  padding-bottom: clamp(1rem, 3vh, 2.5rem);
+}
+
+/* ── iOS Safari 100vh fix ──────────────────────────────────── */
+.hero-height { height: 100vh; }
+@supports (height: 100svh) { .hero-height { height: 100svh; } }
+
+/* ── Responsive scroll sequence ────────────────────────────── */
+@media (max-width: 1024px) {
+  .content-wrapper { padding: 0 24px; }
+  .progress-bar    { display: none; }
+}
+@media (max-width: 768px) {
+  .content-wrapper { padding: 0 16px; }
+  .section-content {
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    padding-top: 72px;
+  }
+}
+
+/* ── Arc carousel ──────────────────────────────────────────── */
+.arc-card {
+  position: absolute;
+  width: 130px; height: 170px;
+  border-radius: 14px; overflow: hidden;
+  border: 2px solid var(--card-border, #1e293b);
+  box-shadow: 0 12px 30px -6px rgba(0,0,0,0.5);
+}
+.arc-card img { width: 100%; height: 100%; object-fit: cover; opacity: 0.75; }
+.arc-card::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(2,6,23,0.95) 0%, transparent 55%);
+  z-index: 1; pointer-events: none;
+}
+.arc-label {
+  position: absolute; bottom: 12px; left: 0; width: 100%;
+  text-align: center; z-index: 2;
+  font-size: 11px; font-weight: 700; color: white;
+  text-shadow: 0 2px 8px rgba(0,0,0,1);
+}
+.light .arc-card::after { background: linear-gradient(to top, rgba(248,250,252,0.9) 0%, transparent 55%); }
+.light .arc-label { color: #0F172A; text-shadow: none; }
