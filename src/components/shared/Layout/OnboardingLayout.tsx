@@ -17,13 +17,13 @@ export function OnboardingLayout({ title, step, totalSteps, children }: Props) {
       </Head>
       <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col">
         <header className="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-white/5 bg-white/80 dark:bg-slate-950/80 backdrop-blur-sm sticky top-0 z-50">
-          <Link href="/" className="flex items-center gap-2">
-            <span className="w-7 h-7 rounded-lg bg-blue-600 flex items-center justify-center">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="12" cy="12" r="3"/><path d="M12 2a10 10 0 0 1 10 10 10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2z"/>
-              </svg>
-            </span>
-            <span className="font-black text-slate-900 dark:text-white tracking-tight">Órbita</span>
+          <Link href="/" className="flex items-center gap-2.5">
+            <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="15" cy="15" r="13" stroke="#2563eb" strokeWidth="3.2" strokeDasharray="60 22" strokeLinecap="round"/>
+              <circle cx="25.5" cy="7.5" r="4" fill="#93c5fd"/>
+              <circle cx="15" cy="15" r="4.5" fill="#1e3a8a"/>
+            </svg>
+            <span className="font-black text-slate-900 dark:text-white tracking-tight text-lg">Órbita</span>
           </Link>
           {step !== undefined && totalSteps !== undefined && (
             <div className="flex items-center gap-3">
