@@ -1,4 +1,4 @@
-import { useEffect, useRef, ReactNode } from 'react';
+import { useEffect, useRef, ReactNode, ReactElement } from 'react';
 import { LiveChatCard }    from '@/components/cards/LiveChatCard';
 import { UnifiedPanelCard } from '@/components/cards/UnifiedPanelCard';
 import { CalendarCard }    from '@/components/cards/CalendarCard';
@@ -18,7 +18,7 @@ function Cross() {
   return <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ef4444" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>;
 }
 
-interface Step { id: string; badge: ReactNode; title: ReactNode; desc: string; items: { icon: ReactNode; text: string }[]; Card: () => JSX.Element; cardFirst: boolean; }
+interface Step { id: string; badge: ReactNode; title: ReactNode; desc: string; items: { icon: ReactNode; text: string }[]; Card: () => ReactElement; cardFirst: boolean; }
 
 const STEPS: Step[] = [
   {
