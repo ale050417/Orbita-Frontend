@@ -1,10 +1,9 @@
-﻿import { useState, useRef, ChangeEvent } from 'react';
+import { useState, useRef, ChangeEvent } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
-import \{ LayoutCompras \} from '@/modules/compras/layout/LayoutCompras';
+import { LayoutCompras } from '@/modules/compras/layout/LayoutCompras';
 import { ChevronLeft, Upload, X, Plus, Check, Info } from 'lucide-react';
 
-/* â”€â”€ shared field/input helpers â”€â”€ */
 const inputCls = 'w-full px-3 py-2.5 text-sm rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900/40 text-slate-900 dark:text-white placeholder-slate-400 outline-none focus:ring-2 focus:ring-blue-500/30 focus:border-blue-500 transition-all';
 
 function Field({ label, children, hint, required }: { label: string; children: React.ReactNode; hint?: string; required?: boolean }) {
@@ -63,7 +62,6 @@ export default function NewProduct() {
   return (
     <LayoutCompras title="Nuevo producto">
       <div className="p-6 max-w-5xl mx-auto">
-        {/* breadcrumb */}
         <div className="flex items-center gap-2 mb-6 text-sm">
           <Link href="/tienda/products" className="flex items-center gap-1 text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors">
             <ChevronLeft size={16}/> Productos
@@ -73,25 +71,22 @@ export default function NewProduct() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* main column */}
           <div className="lg:col-span-2 space-y-5">
 
-            {/* basic info */}
-            <Card title="InformaciÃ³n bÃ¡sica">
+            <Card title="Información básica">
               <div className="space-y-4">
                 <Field label="Nombre del producto" required>
                   <input value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value, slug: toSlug(e.target.value) }))}
-                    placeholder="Ej: Corte de pelo clÃ¡sico" className={inputCls}/>
+                    placeholder="Ej: Corte de pelo clásico" className={inputCls}/>
                 </Field>
-                <Field label="DescripciÃ³n">
+                <Field label="Descripción">
                   <textarea value={form.description} onChange={e => setForm(f => ({ ...f, description: e.target.value }))}
-                    rows={4} placeholder="DescripciÃ³n del productoâ€¦" className={`${inputCls} resize-none`}/>
+                    rows={4} placeholder="Descripción del producto…" className={`${inputCls} resize-none`}/>
                 </Field>
               </div>
             </Card>
 
-            {/* images */}
-            <Card title="ImÃ¡genes">
+            <Card title="Imágenes">
               <div className="grid grid-cols-4 sm:grid-cols-6 gap-3">
                 {images.map((img, i) => (
                   <div key={i} className="relative aspect-square rounded-xl overflow-hidden group">
@@ -109,10 +104,9 @@ export default function NewProduct() {
                 </button>
                 <input ref={imgRef} type="file" multiple accept="image/*" className="hidden" onChange={handleImages}/>
               </div>
-              <p className="text-xs text-slate-400 mt-3">La primera imagen es la principal. ArrastrÃ¡ para reordenar.</p>
+              <p className="text-xs text-slate-400 mt-3">La primera imagen es la principal. Arrastrá para reordenar.</p>
             </Card>
 
-            {/* pricing */}
             <Card title="Precios">
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
                 <Field label="Precio (ARS)" required>
@@ -144,7 +138,6 @@ export default function NewProduct() {
               </label>
             </Card>
 
-            {/* inventory */}
             <Card title="Inventario">
               <div className="grid grid-cols-2 gap-4">
                 <Field label="SKU">
@@ -169,7 +162,6 @@ export default function NewProduct() {
               </div>
             </Card>
 
-            {/* SEO */}
             <Card title="SEO y URL">
               <div className="space-y-4">
                 <Field label="Slug (URL)">
@@ -179,19 +171,18 @@ export default function NewProduct() {
                       placeholder="nombre-del-producto" className="flex-1 px-3 py-2.5 text-sm bg-transparent text-slate-900 dark:text-white placeholder-slate-400 outline-none"/>
                   </div>
                 </Field>
-                <Field label="TÃ­tulo SEO">
+                <Field label="Título SEO">
                   <input value={form.metaTitle} onChange={e => setForm(f => ({ ...f, metaTitle: e.target.value }))}
-                    placeholder="TÃ­tulo para buscadores" className={inputCls}/>
+                    placeholder="Título para buscadores" className={inputCls}/>
                 </Field>
-                <Field label="DescripciÃ³n SEO">
+                <Field label="Descripción SEO">
                   <textarea value={form.metaDesc} onChange={e => setForm(f => ({ ...f, metaDesc: e.target.value }))}
-                    rows={2} placeholder="DescripciÃ³n breve para Googleâ€¦" className={`${inputCls} resize-none`}/>
+                    rows={2} placeholder="Descripción breve para Google…" className={`${inputCls} resize-none`}/>
                 </Field>
               </div>
             </Card>
           </div>
 
-          {/* side column */}
           <div className="space-y-5">
             <Card title="Estado">
               <div className="space-y-2">
@@ -203,17 +194,17 @@ export default function NewProduct() {
                     </div>
                     <div>
                       <p className="text-sm font-semibold text-slate-900 dark:text-white">{s === 'active' ? 'Activo' : 'Borrador'}</p>
-                      <p className="text-xs text-slate-400">{s === 'active' ? 'Visible en la tienda' : 'No visible aÃºn'}</p>
+                      <p className="text-xs text-slate-400">{s === 'active' ? 'Visible en la tienda' : 'No visible aún'}</p>
                     </div>
                   </label>
                 ))}
               </div>
             </Card>
 
-            <Card title="CategorÃ­a">
+            <Card title="Categoría">
               <select value={form.category} onChange={e => setForm(f => ({ ...f, category: e.target.value }))}
                 className={inputCls}>
-                <option value="">Sin categorÃ­a</option>
+                <option value="">Sin categoría</option>
                 {CATEGORIES.map(c => <option key={c}>{c}</option>)}
               </select>
             </Card>
@@ -229,14 +220,13 @@ export default function NewProduct() {
               </div>
               <div className="flex gap-2">
                 <input value={tagInput} onChange={e => setTagInput(e.target.value)} onKeyDown={e => e.key === 'Enter' && (e.preventDefault(), addTag())}
-                  placeholder="Nueva etiquetaâ€¦" className={`${inputCls} flex-1`}/>
+                  placeholder="Nueva etiqueta…" className={`${inputCls} flex-1`}/>
                 <button onClick={addTag} className="px-3 py-2 rounded-xl bg-slate-100 dark:bg-white/8 hover:bg-blue-50 dark:hover:bg-blue-500/10 text-slate-500 hover:text-blue-600 transition-colors">
                   <Plus size={14}/>
                 </button>
               </div>
             </Card>
 
-            {/* actions */}
             <div className="space-y-2">
               <button onClick={() => handleSave(false)} disabled={!form.name || saving}
                 className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 disabled:opacity-50 text-white font-bold text-sm transition-all shadow-lg shadow-blue-500/20">
@@ -265,4 +255,3 @@ function Card({ title, children }: { title: string; children: React.ReactNode })
     </div>
   );
 }
-
