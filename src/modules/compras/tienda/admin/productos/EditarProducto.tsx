@@ -31,7 +31,7 @@ function Card({ title, children, action }: { title: string; children: React.Reac
 
 /* mock existing product data */
 const MOCK = {
-  name: 'Shampoo Premium 400ml', sku: 'PRD-002', description: 'Shampoo profesional para todo tipo de cabello. Fórmula con aceite de argán.', price: '3200', comparePrice: '4000', cost: '1500', category: 'Cuidado', status: 'active' as const,
+  name: 'Shampoo Premium 400ml', sku: 'PRD-002', description: 'Shampoo profesional para todo tipo de cabello. Fórmula con aceite de argán.', price: '3200', comparePrice: '4000', cost: '1500', category: 'Cuidado', status: 'active' as 'active' | 'draft',
   taxable: true, trackStock: true, stock: '24', lowStockAlert: '5',
   slug: 'shampoo-premium-400ml', metaTitle: '', metaDesc: '',
 };
