@@ -59,7 +59,7 @@ export function Footer() {
         <div className="max-w-6xl mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
             <div className="md:col-span-1">
-              <div className="flex items-center gap-2.5 mb-4 cursor-pointer" onClick={(e) => handleClick(e as React.MouseEvent, { href: '#' })}>
+              <div className="flex items-center gap-2.5 mb-4 cursor-pointer" onClick={(e) => handleClick(e as React.MouseEvent, { label: '', href: '#' })}>
                 <svg viewBox="0 0 30 30" fill="none" className="w-7 h-7">
                   <circle cx="15" cy="15" r="13" stroke="#2563eb" strokeWidth="3.2" strokeDasharray="60 22" strokeLinecap="round"/>
                   <circle cx="25.5" cy="7.5" r="4" fill="#93c5fd"/>
